@@ -30,7 +30,7 @@ export class AuthController {
   @UseGuards(AuthGuard('jwt'))
   @Post('refresh')
   async refresh(@Request() req) {
-    const admin: AdminEntity = await this.adminRepository.findOne({where: {login: req.login}});
+    const admin: AdminEntity = await this.adminRepository.findOne(req.user.id);
     return this.authService.login(admin);
   }
   
